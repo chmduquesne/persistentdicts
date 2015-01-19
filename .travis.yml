@@ -5,6 +5,6 @@ before_install:
 python:
     - 2.7
 script:
-    - coverage run python -m unittest discover -v
+    - coverage run /usr/bin/python -m unittest discover -v
 after_success:
     - coveralls
