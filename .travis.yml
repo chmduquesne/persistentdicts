@@ -1,7 +1,10 @@
 before_install:
     - sudo add-apt-repository -y "deb http://archive.ubuntu.com/ubuntu/ trusty main universe"
     - sudo apt-get update -qq
+    - sudo pip install coveralls
 python:
     - 2.7
 script:
-    - python -m unittest discover -v
+    - coverage run python -m unittest discover -v
+after_success:
+    - coveralls
