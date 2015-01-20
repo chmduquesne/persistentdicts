@@ -1,0 +1,2 @@
+import proxydict
+import kyotocabinetdict
