@@ -1,7 +1,13 @@
 before_install:
     - sudo add-apt-repository -y "deb http://archive.ubuntu.com/ubuntu/ trusty main universe"
     - sudo apt-get update -qq
+install:
+    - sudo apt-get install -qq gcc g++ build-essential
+    - sudo apt-get install -qq sqlite
+    - sudo pip install virtualenv
     - sudo pip install coveralls
+    - virtualenv venv
+    - venv/bin/pip install -r requirements.txt
 python:
     - 2.7
 script:
