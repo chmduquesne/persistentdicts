@@ -6,12 +6,12 @@ install:
     - sudo apt-get install -qq sqlite
     - sudo apt-get install -qq libkyotocabinet-dev
     - sudo pip install virtualenv
-    - sudo pip install coveralls
     - virtualenv venv
     - venv/bin/pip install -r requirements.txt
+    - venv/bin/pip install coveralls
 python:
     - 2.7
 script:
-    - coverage run -m unittest discover -v
+    - venv/bin/coverage run -m unittest discover -v
 after_success:
-    - coveralls
+    - venv/bin/coveralls
