@@ -10,6 +10,6 @@ setuptools.setup(
     long_description=__doc__,
     packages=["persistentdicts"],
     install_requires=[
-        "sqlite3"
+        "kyotocabinet >= 1.9"
         ]
 )
