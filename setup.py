@@ -29,7 +29,7 @@ setuptools.setup(
     author_email ="chmd@chmd.fr",
     url="https://github.com/chmduquesne/persistentdicts",
     download_url="https://github.com/chmduquesne/persistentdicts/archive/%s.tar.gz" % (github_download),
-    keywords=["database", "interface", "adapter"]
+    keywords=["database", "interface", "adapter"],
     packages=["persistentdicts"],
     classifiers=[
         'Development Status :: 4 - Beta',
@@ -37,7 +37,7 @@ setuptools.setup(
         'License :: OSI Approved :: MIT License',
         'Operating System :: OS Independent',
         'Programming Language :: Python :: 2',
-        ]
+        ],
     install_requires=[
         "kyotocabinet >= 1.9"
         ]
