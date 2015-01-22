@@ -2,6 +2,9 @@ before_install:
     - sudo add-apt-repository -y "deb http://archive.ubuntu.com/ubuntu/ trusty main universe"
     - sudo apt-get update -qq
 install:
+    - echo ${TRAVIS_COMMIT}
+    - echo ${TRAVIS_BRANCH}
+    - echo ${TRAVIS_TAG}
     - sudo apt-get install -qq gcc g++ build-essential
     - sudo apt-get install -qq sqlite
     - sudo apt-get install -qq libkyotocabinet-dev
