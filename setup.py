@@ -16,19 +16,24 @@ import setuptools
 # https://www.python.org/dev/peps/pep-0440/ by suffixing accordingly.
 
 version = open("version").read()
+
+package_name = "persistentdicts"
+description = __doc__
+github_url = version
+
 if "dev" in version:
-    github_download = "master"
-else:
-    github_download = version
+    package_name = "persistentdicts-dev"
+    description = "development version of persistentdicts"
+    github_url = "master"
 
 setuptools.setup(
-    name="persistentdicts",
+    name=package_name,
     version=version,
-    description=__doc__,
+    description=description,
     author="Christophe-Marie Duquesne",
     author_email ="chmd@chmd.fr",
     url="https://github.com/chmduquesne/persistentdicts",
-    download_url="https://github.com/chmduquesne/persistentdicts/archive/%s.tar.gz" % (github_download),
+    download_url="https://github.com/chmduquesne/persistentdicts/archive/%s.tar.gz" % (github_url),
     keywords=["database", "interface", "adapter"],
     packages=["persistentdicts"],
     classifiers=[
