@@ -5,7 +5,7 @@ before_install:
     - sudo add-apt-repository -y "deb http://archive.ubuntu.com/ubuntu/ trusty main universe"
     - sudo apt-get update -qq
     - echo $pypirc_password | gpg --passphrase-fd 0 .travis/pypirc.gpg
-    - mv .travis/pypirc ~/.pypirc
+    - mv .travis/pypirc ${HOME}/.pypirc
 install:
     - sudo apt-get install -qq gcc g++ build-essential
     - sudo apt-get install -qq sqlite
