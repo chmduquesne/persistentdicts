@@ -1,13 +1,7 @@
-env:
-    global:
-        secure: PNI5qMHhEdHbUSAIIGL2u/27bb7CHgy0Ql84XOL9pt++0CMB5rh0Q01GTHkALYaMZ9Nzq7eqm8jqC0lDaQVUlm+vJIfyJCJ1nIcMs3dCp/7vH14u/xj+bEpNEhQJUScDfLuhQE1fKF5yjUhBopVzh9EBGvpwaOGrkF7zy6ohjMY=
 before_install:
     - sudo add-apt-repository -y "deb http://archive.ubuntu.com/ubuntu/ trusty main universe"
     - sudo apt-get update -qq
-    - echo $pypirc_password | gpg --batch --passphrase-fd 0 .travis/pypirc.gpg
-    - echo $pypirc_password | gpg --batch --passphrase-fd 0 .travis/test.txt.gpg
-    - cat .travis/test.txt
-    - mv .travis/pypirc ~/.pypirc
+    - git describe --long --tags | sed 's/-\([^-]\+\)-.*/.dev\1/g' > version
 install:
     - sudo apt-get install -qq gcc g++ build-essential
     - sudo apt-get install -qq sqlite
@@ -22,7 +16,8 @@ script:
     - venv/bin/coverage run -m unittest discover -v
 after_success:
     - venv/bin/coveralls
-    - git describe --long --tags | sed 's/-\([^-]\+\)-.*/.dev\1/g' > version
-    - ls -la ~/
-    - head -n1 ~/.pypirc
-    - python setup.py sdist upload
+deploy:
+    provider: pypi
+    user: chm.duquesne
+    password:
+        secure: BwkOtw3rQxJ4r8DUNJSndmO/08zRk9ZTcNw+7Mw5CyiqHl9RjTTUrUSgFzxDDtSkBdIzlsUCPFVuqL5SIC1adw8Uof9BNRYZPccL8knrtQe7dqF0rkE6O2PVvF1SCyurKqCmRKy9LZBzxIok+YX67tuWmjbngOmf/JLyuN/rIF0=
