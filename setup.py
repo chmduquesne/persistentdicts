@@ -45,6 +45,6 @@ setuptools.setup(
         ],
     install_requires=[
         "kyotocabinet >= 1.9",
-        "cassandra-driver >= 2.2.0"
+        "cassandra-driver >= 2.1.3"
         ]
 )
