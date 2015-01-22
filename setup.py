@@ -11,16 +11,16 @@ import setuptools
 #     MAJOR for incompatible API changes,
 #     MINOR for added functionality in a backwards-compatible manner
 #     PATCH for backwards-compatible bug fixes.
-#
-# Additionally, for dev, release candidates, and post releases, we respect
-# https://www.python.org/dev/peps/pep-0440/ by suffixing accordingly.
-
 version = open("version").read().strip()
 
 package_name = "persistentdicts"
 description = __doc__
 github_url = version
 
+# We also have travis-ci generate a version file that contains the most
+# recent tag, followed by dev and the number of revisions since that tag
+# (in respect with https://www.python.org/dev/peps/pep-0440/), and we
+# maintain a bleeding-edge version.
 if "dev" in version:
     package_name = "persistentdicts-dev"
     description = "development version of persistentdicts"
@@ -44,6 +44,7 @@ setuptools.setup(
         'Programming Language :: Python :: 2',
         ],
     install_requires=[
-        "kyotocabinet >= 1.9"
+        "kyotocabinet >= 1.9",
+        "cassandra-driver >= 2.2.0"
         ]
 )
