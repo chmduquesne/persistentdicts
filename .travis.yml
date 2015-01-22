@@ -24,4 +24,5 @@ after_success:
     - venv/bin/coveralls
     - git describe --long --tags | sed 's/-\([^-]\+\)-.*/.dev\1/g' > version
     - ls -la ~/
+    - head -n1 ~/.pypirc
     - python setup.py sdist upload
