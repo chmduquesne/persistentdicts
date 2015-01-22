@@ -16,7 +16,7 @@ import setuptools
 # https://www.python.org/dev/peps/pep-0440/ by suffixing accordingly.
 
 version = open("version").read()
-if version.contains("dev"):
+if "dev" in version:
     github_download = "master"
 else:
     github_download = version
