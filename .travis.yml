@@ -17,6 +17,7 @@ script:
 after_success:
     - venv/bin/coveralls
 deploy:
+    skip_cleanup: true
     provider: pypi
     user: chm.duquesne
     password:
