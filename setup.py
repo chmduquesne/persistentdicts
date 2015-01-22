@@ -15,7 +15,7 @@ import setuptools
 # Additionally, for dev, release candidates, and post releases, we respect
 # https://www.python.org/dev/peps/pep-0440/ by suffixing accordingly.
 
-version = open("version").read()
+version = open("version").read().strip()
 
 package_name = "persistentdicts"
 description = __doc__
