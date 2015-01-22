@@ -5,6 +5,7 @@ install:
     - echo ${TRAVIS_COMMIT}
     - echo ${TRAVIS_BRANCH}
     - echo ${TRAVIS_TAG}
+    - git describe --long --tags 2>/dev/null | sed 's/\([^-]*-g\)/r\1/;s/-/./g'
     - sudo apt-get install -qq gcc g++ build-essential
     - sudo apt-get install -qq sqlite
     - sudo apt-get install -qq libkyotocabinet-dev
