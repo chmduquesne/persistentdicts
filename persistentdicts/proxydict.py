@@ -29,7 +29,7 @@ class ProxyDict(collections.MutableMapping):
             yield self.invert_trans(key), self.invert_trans(value)
 
     def __iter__(self):
-        for key, value in self.target.iteritems():
+        for key in self.target:
             yield self.invert_trans(key)
 
     def __str__(self):

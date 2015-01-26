@@ -79,35 +79,9 @@ class KyotoCabinetStringDict(collections.MutableMapping):
                 yield (key, value)
             cursor.disable()
 
-    def get(self, key, default=None):
-        with DBOpen(self.path) as db:
-            value = db.get(key)
-            if value is None:
-                return default
-            else:
-                return value
-
-    def pop(self, key, default=None):
-        with DBOpen(self.path, mode=DB.OWRITER) as db:
-            value = db.get(key)
-            if value is None:
-                if default is None:
-                    raise KeyError
-                else:
-                    return default
-            del self[key]
-            return value
-
     def __iter__(self):
         for key, value in self.iteritems():
             yield key
-
-    def clear(self):
-        for key in self:
-            del self[key]
-
-    def has_key(self, key):
-        return key in self
 
 
 class KyotoCabinetDict(proxydict.JsonProxyDict):

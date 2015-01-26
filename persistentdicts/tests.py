@@ -28,11 +28,11 @@ class DictionaryTestCase():
         d = self.get_dictionary()   # tested
         m = dict()                  # mirror
         self.assertEqual(len(d), 0)
-        values = ["a", 1, None]
-        for x in values:
-            d[x] = x
-            m[x] = x
-        self.assertEqual(len(d), len(values))
+        elems = ["a", 1, None]
+        for e in elems:
+            d[e] = e
+            m[e] = e
+        self.assertEqual(len(d), len(elems))
         self.assertEqual(dict(d), m)
 
     def test_getitem_empty(self):
@@ -42,11 +42,11 @@ class DictionaryTestCase():
 
     def test_getitem_assign(self):
         d = self.get_dictionary()
-        values = ["a", 1, None]
-        for x in values:
-            d[x] = x
-        for x in values:
-            self.assertEqual(d[x], x)
+        elems = ["a", 1, None]
+        for e in elems:
+            d[e] = e
+        for e in elems:
+            self.assertEqual(d[e], e)
 
     def test_delete_empty(self):
         d = self.get_dictionary()
@@ -75,22 +75,25 @@ class DictionaryTestCase():
 
     def test_iter(self):
         d = self.get_dictionary()
-        for key in ["a", "b", "c"]:
-            d[key] = key
-        for key in iter(d):
-            self.assertEqual(d[key], key)
+        elems = ["a", 1, None]
+        for e in elems:
+            d[e] = e
+        for e in iter(d):
+            self.assertEqual(d[e], e)
 
     def test_iter_for_in(self):
         d = self.get_dictionary()
-        for key in ["a", "b", "c"]:
-            d[key] = key
-        for key in d:
-            self.assertEqual(d[key], key)
+        elems = ["a", 1, None]
+        for e in elems:
+            d[e] = e
+        for e in d:
+            self.assertEqual(d[e], e)
 
     def test_clear(self):
         d = self.get_dictionary()
-        for key in ["a", "b", "c"]:
-            d[key] = key
+        elems = ["a", 1, None]
+        for e in elems:
+            d[e] = e
         self.assertEqual(len(d), 3)
         d.clear()
         self.assertEqual(len(d), 0)
@@ -107,10 +110,11 @@ class DictionaryTestCase():
 
     def test_get(self):
         d = self.get_dictionary()
-        for key in ["a", "b", "c"]:
-            d[key] = key
-        for key in d:
-            self.assertEqual(d.get(key), key)
+        elems = ["a", 1, None]
+        for e in elems:
+            d[e] = e
+        for e in d:
+            self.assertEqual(d.get(e), e)
 
     def test_has_key(self):
         d = self.get_dictionary()
@@ -120,36 +124,41 @@ class DictionaryTestCase():
 
     def test_items(self):
         d = self.get_dictionary()
-        for key in ["a", "b", "c"]:
-            d[key] = key
+        elems = ["a", 1, None]
+        for e in elems:
+            d[e] = e
         for key, value in d.items():
             self.assertEqual(key, value)
 
     def test_iteritems(self):
         d = self.get_dictionary()
-        for key in ["a", "b", "c"]:
-            d[key] = key
+        elems = ["a", 1, None]
+        for e in elems:
+            d[e] = e
         for key, value in d.iteritems():
             self.assertEqual(key, value)
 
     def test_iterkeys(self):
         d = self.get_dictionary()
-        for key in ["a", "b", "c"]:
-            d[key] = key
+        elems = ["a", 1, None]
+        for e in elems:
+            d[e] = e
         for key in d.iterkeys():
             self.assertEqual(d[key], key)
 
     def test_itervalues(self):
         d = self.get_dictionary()
-        for key in ["a", "b", "c"]:
-            d[key] = key
+        elems = ["a", 1, None]
+        for e in elems:
+            d[e] = e
         for value in d.itervalues():
             self.assertEqual(d[value], value)
 
     def test_keys(self):
         d = self.get_dictionary()
-        for key in ["a", "b", "c"]:
-            d[key] = key
+        elems = ["a", 1, None]
+        for e in elems:
+            d[e] = e
         for key in d.keys():
             self.assertEqual(d[key], key)
 
@@ -171,10 +180,23 @@ class DictionaryTestCase():
 
     def test_values(self):
         d = self.get_dictionary()
-        for key in ["a", "b", "c"]:
-            d[key] = key
+        elems = ["a", 1, None]
+        for e in elems:
+            d[e] = e
         for value in d.values():
             self.assertEqual(d[value], value)
+
+
+class RealDictTestCase(DictionaryTestCase, unittest.TestCase):
+
+    def setUp(self):
+        pass
+
+    def tearDown(self):
+        pass
+
+    def get_dictionary(self):
+        return dict()
 
 
 class ProxyDictTestCase(DictionaryTestCase, unittest.TestCase):
