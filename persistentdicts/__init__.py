@@ -1,2 +1,2 @@
-import proxydict
-import kyotocabinetdict
+from proxydict import ProxyDict, JsonProxyDict
+from kyotocabinetdict import KyotoCabinetDict

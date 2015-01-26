@@ -186,7 +186,7 @@ class ProxyDictTestCase(DictionaryTestCase, unittest.TestCase):
         pass
 
     def get_dictionary(self):
-        return persistentdicts.proxydict.ProxyDict()
+        return persistentdicts.ProxyDict()
 
 
 class JsonProxyDictTestCase(DictionaryTestCase, unittest.TestCase):
@@ -198,7 +198,7 @@ class JsonProxyDictTestCase(DictionaryTestCase, unittest.TestCase):
         pass
 
     def get_dictionary(self):
-        return persistentdicts.proxydict.JsonProxyDict()
+        return persistentdicts.JsonProxyDict()
 
 
 class KyotoCabinetDictTestCase(DictionaryTestCase, unittest.TestCase):
@@ -213,4 +213,4 @@ class KyotoCabinetDictTestCase(DictionaryTestCase, unittest.TestCase):
         os.unlink(self.path)
 
     def get_dictionary(self):
-        return persistentdicts.kyotocabinetdict.KyotoCabinetDict(self.path)
+        return persistentdicts.KyotoCabinetDict(self.path)
