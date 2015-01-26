@@ -88,5 +88,5 @@ class KyotoCabinetDict(proxydict.JsonProxyDict):
 
     def __init__(self, path, *args, **kwargs):
         target = KyotoCabinetStringDict(path)
-        super(KyotoCabinetDict, self).__init__(target)
+        super(proxydict.JsonProxyDict, self).__init__(target)
         self.update(dict(*args, **kwargs))
