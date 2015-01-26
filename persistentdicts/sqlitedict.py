@@ -9,7 +9,7 @@ import contextlib
 
 class SqliteStringDict(collections.MutableMapping):
     """
-    KyotoCabinet database with an interface of dictionary
+    Sqlite database with an interface of dictionary
     """
 
     def __init__(self, path, table="dict"):
