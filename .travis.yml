@@ -3,7 +3,7 @@ language:
 before_install:
     - sudo add-apt-repository -y "deb http://archive.ubuntu.com/ubuntu/ trusty main universe"
     - sudo apt-get update -qq
-    - git describe --long --tags | sed 's/-\([^-]\+\)-.*/.dev\1/g' > version
+    - git describe | sed 's/-\([^-]\+\)-.*/.dev\1/g' > version
 install:
     - sudo apt-get install -qq gcc g++ build-essential
     - sudo apt-get install -qq sqlite
@@ -19,14 +19,8 @@ script:
 after_success:
     - venv/bin/coveralls
 deploy:
-    - provider: pypi
-      skip_cleanup: true
-      user: chm.duquesne
-      password:
-          secure: BwkOtw3rQxJ4r8DUNJSndmO/08zRk9ZTcNw+7Mw5CyiqHl9RjTTUrUSgFzxDDtSkBdIzlsUCPFVuqL5SIC1adw8Uof9BNRYZPccL8knrtQe7dqF0rkE6O2PVvF1SCyurKqCmRKy9LZBzxIok+YX67tuWmjbngOmf/JLyuN/rIF0=
-    - provider: pypi
-      user: chm.duquesne
-      password:
-          secure: BwkOtw3rQxJ4r8DUNJSndmO/08zRk9ZTcNw+7Mw5CyiqHl9RjTTUrUSgFzxDDtSkBdIzlsUCPFVuqL5SIC1adw8Uof9BNRYZPccL8knrtQe7dqF0rkE6O2PVvF1SCyurKqCmRKy9LZBzxIok+YX67tuWmjbngOmf/JLyuN/rIF0=
-      on:
-          tags: true
+    provider: pypi
+    skip_cleanup: true
+    user: chm.duquesne
+    password:
+        secure: BwkOtw3rQxJ4r8DUNJSndmO/08zRk9ZTcNw+7Mw5CyiqHl9RjTTUrUSgFzxDDtSkBdIzlsUCPFVuqL5SIC1adw8Uof9BNRYZPccL8knrtQe7dqF0rkE6O2PVvF1SCyurKqCmRKy9LZBzxIok+YX67tuWmjbngOmf/JLyuN/rIF0=
