@@ -35,6 +35,16 @@ class DictionaryTestCase():
         self.assertEqual(len(d), len(elems))
         self.assertEqual(dict(d), m)
 
+    def test_len_deleted_element(self):
+        d = self.get_dictionary()
+        self.assertEqual(len(d), 0)
+        elems = range(1000)
+        for e in elems:
+            d[e] = e
+        self.assertEqual(len(d), len(elems))
+        del d[elems[0]]
+        self.assertEqual(len(d), len(elems) - 1)
+
     def test_getitem_empty(self):
         d = self.get_dictionary()
         with self.assertRaises(KeyError):
