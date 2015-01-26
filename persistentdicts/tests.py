@@ -236,3 +236,18 @@ class KyotoCabinetDictTestCase(DictionaryTestCase, unittest.TestCase):
 
     def get_dictionary(self):
         return persistentdicts.KyotoCabinetDict(self.path)
+
+
+class SqliteDictTestCase(DictionaryTestCase, unittest.TestCase):
+
+    def setUp(self):
+        fd, path = tempfile.mkstemp(suffix='.db')
+        os.close(fd)
+        os.unlink(path)
+        self.path = path
+
+    def tearDown(self):
+        os.unlink(self.path)
+
+    def get_dictionary(self):
+        return persistentdicts.SqliteDict(self.path)
