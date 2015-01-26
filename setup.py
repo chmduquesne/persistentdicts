@@ -1,8 +1,10 @@
-# -*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 """
 Dictionaries that survive one run
 """
 import setuptools
+
+DOWNLOAD = "https://github.com/chmduquesne/persistentdicts/archive/%s.tar.gz"
 
 # We use semantic versioning http://semver.org/.
 #
@@ -11,29 +13,30 @@ import setuptools
 #     MAJOR for incompatible API changes,
 #     MINOR for added functionality in a backwards-compatible manner
 #     PATCH for backwards-compatible bug fixes.
-version = open("version").read().strip()
+VERSION = open("version").read().strip()
 
-package_name = "persistentdicts"
-description = __doc__
-github_url = version
+PACKAGE_NAME = "persistentdicts"
+DESCRIPTION = __doc__
+GIT_REF = VERSION
+
 
 # We also have travis-ci generate a version file that contains the most
 # recent tag, followed by dev and the number of revisions since that tag
 # (in respect with https://www.python.org/dev/peps/pep-0440/), and we
 # maintain a bleeding-edge version.
-if "dev" in version:
-    package_name = "persistentdicts-dev"
-    description = "development version of persistentdicts"
-    github_url = "master"
+if "dev" in VERSION:
+    PACKAGE_NAME = "persistentdicts-dev"
+    DESCRIPTION = "development version of persistentdicts"
+    GIT_REF = "master"
 
 setuptools.setup(
-    name=package_name,
-    version=version,
-    description=description,
+    name=PACKAGE_NAME,
+    version=VERSION,
+    description=DESCRIPTION,
     author="Christophe-Marie Duquesne",
-    author_email ="chmd@chmd.fr",
+    author_email="chmd@chmd.fr",
     url="https://github.com/chmduquesne/persistentdicts",
-    download_url="https://github.com/chmduquesne/persistentdicts/archive/%s.tar.gz" % (github_url),
+    download_url=DOWNLOAD % (GIT_REF),
     keywords=["database", "interface", "adapter"],
     packages=["persistentdicts"],
     classifiers=[
