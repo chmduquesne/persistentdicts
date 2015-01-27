@@ -19,6 +19,12 @@ class DictionaryTestCase():
     def get_dictionary(self):
         raise NotImplementedError
 
+    def test_create(self):
+        d = self.get_dictionary()
+        self.assertEqual(dict(d), {})
+        self.assertEqual(list(d), [])
+        self.assertEqual(len(d), 0)
+
     def test_empty(self):
         d = self.get_dictionary()   # tested
         m = dict()                  # mirror
