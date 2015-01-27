@@ -92,7 +92,7 @@ persistentdicts.SqliteDict
   * `isolation_level` is the isolation level used for all transactions.
     See the [sqlite documentation][1] for more details.
   * the remaining arguments `*args, **kwargs` are used to fill the
-    dictionary (like for a norm `dict`)
+    dictionary (like a normal `dict`)
 
 persistentdicts.KyotoCabinetDict
 --------------------------------
@@ -104,7 +104,7 @@ persistentdicts.KyotoCabinetDict
     used internally (must be one of .kch, .kct, .kcd, .kcf or .kcx). See
     the [kyotocabinet documentation][2] for more details.
   * the remaining arguments `*args, **kwargs` are used to fill the
-    dictionary (like for a norm `dict`)
+    dictionary (like a normal `dict`)
 
 [1]: https://docs.python.org/2/library/sqlite3.html#sqlite3.Connection.isolation_level
 [2]: http://fallabs.com/kyotocabinet/pythonlegacydoc/kyotocabinet.DB-class.html#open
