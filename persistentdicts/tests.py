@@ -7,7 +7,10 @@ import os
 
 class DictionaryTestCase():
     """
-    Generic dictionary test case, used to test the serializeddicts
+    Generic dictionary test case
+
+    Some tests are "stolen" from the standard lib
+    https://github.com/python/cpython/blob/master/Lib/test/test_dict.py
     """
 
     def setUp(self):
@@ -218,6 +221,61 @@ class DictionaryTestCase():
         d = self.get_dictionary()
         d.update(update_from)
         self.assertEqual(dict(d), update_from)
+
+    def test_constructor(self):
+        # Modified from standard lib
+        d = self.get_dictionary()
+        self.assertEqual(d, {})
+        self.assertIsNot(d, {})
+
+    def test_bool(self):
+        # Modified from standard lib
+        d = self.get_dictionary()
+        self.assertIs(not d, True)
+        self.assertIs(bool(d), False)
+        d.update({1: 2})
+        self.assertTrue(d)
+        self.assertIs(bool(d), True)
+
+    def test_copy(self):
+        # Modified from standard lib
+        d = self.get_dictionary()
+        d.update({1: 1, 2: 2, 3: 3})
+        self.assertEqual(d.copy(), {1: 1, 2: 2, 3: 3})
+        self.assertEqual({}.copy(), {})
+        self.assertRaises(TypeError, d.copy, None)
+
+    def test_str(self):
+        # Modified from standard lib
+        d = self.get_dictionary()
+        self.assertEqual(str(d), '{}')
+        d[1] = 2
+        self.assertEqual(str(d), '{1: 2}')
+        d = {}
+        d[1] = d
+        self.assertEqual(str(d), '{1: {...}}')
+
+    # These test still fail
+
+    # def test_invalid_keyword_arguments(self):
+    #     """
+    #     Modified from standard lib
+    #     """
+    #     class Custom(dict):
+    #         pass
+    #     for invalid in {1 : 2}, Custom({1 : 2}):
+    #         with self.assertRaises(TypeError):
+    #             d = self.get_dictionary()
+    #             d.update(**invalid)
+
+    # def test_mutating_iteration(self):
+    #     # Modified from standard lib
+    #     # changing dict size during iteration
+    #     d = self.get_dictionary()
+    #     d[1] = 1
+    #     with self.assertRaises(RuntimeError):
+    #         for i in d:
+    #             d[i+1] = 1
 
 
 class RealDictTestCase(DictionaryTestCase, unittest.TestCase):
