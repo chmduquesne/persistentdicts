@@ -14,15 +14,15 @@ durabledicts, etc. The key differences between persistentdicts and those
 are:
 
 - Implementations of persistentdicts do not keep a local cache dictionary:
-  changes are immediately written to base. You iterate directly on the
-  database. It is likely to be slower, but you can interact with datasets
+  changes are immediately written to database. Iterators are also
+  proceeding directly on the database. It allows to interact with datasets
   that would not fit in RAM otherwise.
 
-- The test suite is significantly bigger. When relevant, tests have been
-  backported from the CPython test suite of dict.
+- The test suite is significantly bigger than in all the other
+  implementation I have seen. When relevant, tests have been backported
+  from the CPython test suite of dict.
 
-- Implementations of persistentdicts serialize in json rather than relying
-  on pickle.
+- Serialization is done in json rather than using pickle.
 
 Gotchas
 -------
@@ -38,10 +38,9 @@ You can't modify a value of the dictionary in place. For example:
     >>> d["a"] # with a normal dict, you would get [1]
     []
 
-That is because ̀̀`d["a"]` returns a copy of the database entry for the key
-`"a"`, and not a reference to a python object.  Modifying this copy does
-not affect the database itself, so `d["a"]` remains unmodified after the
-call to append.
+That is because `d["a"]` returns a copy of the database entry for the key
+`"a"`, and not a reference to a python object. Modifying this copy (with
+`append`) does not affect the database itself.
 
 To circumvent this, you should do:
 
@@ -92,7 +91,8 @@ persistentdicts.SqliteDict
   * `dict` is the table to use in this file
   * `isolation_level` is the isolation level used for all transactions.
     See the [sqlite documentation][1] for more details.
-  * `*args, **kwargs` will be used to fill the SqliteDict
+  * the remaining arguments `*args, **kwargs` are used to fill the
+    dictionary (like for a norm `dict`)
 
 persistentdicts.KyotoCabinetDict
 --------------------------------
@@ -103,6 +103,8 @@ persistentdicts.KyotoCabinetDict
     file extension matters and will determine which format is going to be
     used internally (must be one of .kch, .kct, .kcd, .kcf or .kcx). See
     the [kyotocabinet documentation][2] for more details.
+  * the remaining arguments `*args, **kwargs` are used to fill the
+    dictionary (like for a norm `dict`)
 
 [1]: https://docs.python.org/2/library/sqlite3.html#sqlite3.Connection.isolation_level
 [2]: http://fallabs.com/kyotocabinet/pythonlegacydoc/kyotocabinet.DB-class.html#open
