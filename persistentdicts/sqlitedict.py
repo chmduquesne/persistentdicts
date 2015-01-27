@@ -12,10 +12,12 @@ class SqliteStringDict(collections.MutableMapping):
     Sqlite database with an interface of dictionary
     """
 
-    def __init__(self, path, table="dict"):
+    def __init__(self, path, table, isolation_level):
         self.path = path
         self.table = table
-        self.conn = sqlite3.connect(self.path)
+        self.isolation_level = isolation_level
+        self.conn = sqlite3.connect(self.path,
+                                    isolation_level=self.isolation_level)
 
         with contextlib.closing(self.conn.cursor()) as c:
             c.execute("CREATE TABLE IF NOT EXISTS %s "
@@ -74,7 +76,13 @@ class SqliteStringDict(collections.MutableMapping):
 
 class SqliteDict(proxydict.JsonProxyDict):
 
-    def __init__(self, path, *args, **kwargs):
-        target = SqliteStringDict(path)
+    def __init__(self, path=":memory:", table="dict",
+                 isolation_level="DEFERRED", *args, **kwargs):
+        target = SqliteStringDict(path, table=table,
+                                  isolation_level=isolation_level)
         super(proxydict.JsonProxyDict, self).__init__(target)
         self.update(dict(*args, **kwargs))
+
+    def copy(self):
+        t = self.target
+        return SqliteDict(t.path, t.table, t.isolation_level)

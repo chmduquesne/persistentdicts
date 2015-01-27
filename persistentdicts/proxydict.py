@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import collections
 import json
+import sys
 
 
 class ProxyDict(collections.MutableMapping):
@@ -38,6 +39,9 @@ class ProxyDict(collections.MutableMapping):
     def has_key(self, key):
         return self.trans(key) in self.target
 
+    def copy(self):
+        return ProxyDict(target=self.target)
+
     def trans(self, x):
         return x
 
@@ -52,3 +56,6 @@ class JsonProxyDict(ProxyDict):
 
     def invert_trans(self, x):
         return json.loads(x)
+
+    def copy(self):
+        return JsonProxyDict(target=self.target)

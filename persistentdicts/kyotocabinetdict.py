@@ -41,6 +41,9 @@ class KyotoCabinetStringDict(collections.MutableMapping):
         with DBOpen(self.path, mode=DB.OWRITER) as db:
             pass
 
+    def copy(self):
+        return KyotoCabinetStringDict(path=self.path)
+
     def __len__(self):
         with DBOpen(self.path) as db:
             return int(db.count())
@@ -90,3 +93,7 @@ class KyotoCabinetDict(proxydict.JsonProxyDict):
         target = KyotoCabinetStringDict(path)
         super(proxydict.JsonProxyDict, self).__init__(target)
         self.update(dict(*args, **kwargs))
+
+    def copy(self):
+        t = self.target
+        return KyotoCabinetDict(t.path)

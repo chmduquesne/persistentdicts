@@ -19,6 +19,9 @@ class DictionaryTestCase():
     def get_dictionary(self):
         raise NotImplementedError
 
+    def assertInSyncWithCopy(self, d):
+        return self.assertEqual(dict(d), dict(d.copy()))
+
     def test_create(self):
         d = self.get_dictionary()
         self.assertEqual(dict(d), {})
@@ -26,20 +29,18 @@ class DictionaryTestCase():
         self.assertEqual(len(d), 0)
 
     def test_empty(self):
-        d = self.get_dictionary()   # tested
-        m = dict()                  # mirror
-        self.assertEqual(dict(d), m)
+        d = self.get_dictionary()
+        self.assertEqual(dict(d), {})
+        self.assertInSyncWithCopy(d)
 
     def test_len(self):
-        d = self.get_dictionary()   # tested
-        m = dict()                  # mirror
+        d = self.get_dictionary()
         self.assertEqual(len(d), 0)
         elems = ["a", 1, None]
         for e in elems:
             d[e] = e
-            m[e] = e
         self.assertEqual(len(d), len(elems))
-        self.assertEqual(dict(d), m)
+        self.assertInSyncWithCopy(d)
 
     def test_len_deleted_element(self):
         d = self.get_dictionary()
@@ -48,21 +49,24 @@ class DictionaryTestCase():
         for e in elems:
             d[e] = e
         self.assertEqual(len(d), len(elems))
+        self.assertInSyncWithCopy(d)
         del d[elems[0]]
         self.assertEqual(len(d), len(elems) - 1)
+        self.assertInSyncWithCopy(d)
 
     def test_getitem_empty(self):
         d = self.get_dictionary()
         with self.assertRaises(KeyError):
             d["does not exist"]
 
-    def test_getitem_assign(self):
+    def test_setitem(self):
         d = self.get_dictionary()
         elems = ["a", 1, None]
         for e in elems:
             d[e] = e
         for e in elems:
             self.assertEqual(d[e], e)
+        self.assertInSyncWithCopy(d)
 
     def test_delete_empty(self):
         d = self.get_dictionary()
@@ -76,12 +80,14 @@ class DictionaryTestCase():
         del d["a"]
         with self.assertRaises(KeyError):
             del d["a"]
+        self.assertInSyncWithCopy(d)
 
     def test_in(self):
         d = self.get_dictionary()
         self.assertEqual("a" in d, False)
         d["a"] = "a"
         self.assertEqual("a" in d, True)
+        self.assertInSyncWithCopy(d)
 
     def test_not_in(self):
         d = self.get_dictionary()
@@ -111,8 +117,10 @@ class DictionaryTestCase():
         for e in elems:
             d[e] = e
         self.assertEqual(len(d), 3)
+        self.assertInSyncWithCopy(d)
         d.clear()
         self.assertEqual(len(d), 0)
+        self.assertInSyncWithCopy(d)
 
     def test_get_empty(self):
         d = self.get_dictionary()
@@ -201,6 +209,15 @@ class DictionaryTestCase():
             d[e] = e
         for value in d.values():
             self.assertEqual(d[value], value)
+
+    def test_update(self):
+        update_from = dict()
+        elems = ["a", 1, None]
+        for e in elems:
+            update_from[e] = e
+        d = self.get_dictionary()
+        d.update(update_from)
+        self.assertEqual(dict(d), update_from)
 
 
 class RealDictTestCase(DictionaryTestCase, unittest.TestCase):
