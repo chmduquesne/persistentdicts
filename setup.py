@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Dictionaries that survive one run
+Databases exposed through dict-like objects (sqlite, kyotocabinet)
 """
 import setuptools
 
@@ -33,6 +33,7 @@ setuptools.setup(
     name=PACKAGE_NAME,
     version=VERSION,
     description=DESCRIPTION,
+    long_description=open("README.md").read(),
     author="Christophe-Marie Duquesne",
     author_email="chmd@chmd.fr",
     url="https://github.com/chmduquesne/persistentdicts",

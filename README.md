@@ -85,7 +85,7 @@ Short documentation
 persistentdicts.SqliteDict
 --------------------------
 
-    Sqlitedict(path=":memory:", table="dict", isolation_level="DEFERRED", *args, **kwargs)
+    persistentdicts.SqliteDict(path=":memory:", table="dict", isolation_level="DEFERRED", *args, **kwargs)
 
   * `path` is the path to the file where you wish to store the data
   * `dict` is the table to use in this file
@@ -97,7 +97,7 @@ persistentdicts.SqliteDict
 persistentdicts.KyotoCabinetDict
 --------------------------------
 
-    Sqlitedict(path, *args, **kwargs)
+    persistentdicts.KyotoCabinetDict(path, *args, **kwargs)
 
   * `path` is the path to the file where you wish to store the data. The
     file extension matters and will determine which format is going to be
