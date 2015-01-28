@@ -33,7 +33,7 @@ setuptools.setup(
     name=PACKAGE_NAME,
     version=VERSION,
     description=DESCRIPTION,
-    long_description=open("README.md").read(),
+    long_description=open("README.rst").read(),
     author="Christophe-Marie Duquesne",
     author_email="chmd@chmd.fr",
     url="https://github.com/chmduquesne/persistentdicts",
