@@ -48,7 +48,7 @@ class DictionaryTestCase():
     def test_len_deleted_element(self):
         d = self.get_dictionary()
         self.assertEqual(len(d), 0)
-        elems = range(1000)
+        elems = range(100)
         for e in elems:
             d[e] = e
         self.assertEqual(len(d), len(elems))
@@ -342,3 +342,15 @@ class SqliteDictTestCase(DictionaryTestCase, unittest.TestCase):
 
     def get_dictionary(self):
         return persistentdicts.SqliteDict(self.path)
+
+
+class CassandraDictTestCase(DictionaryTestCase, unittest.TestCase):
+
+    def setUp(self):
+        self.dictionary = persistentdicts.CassandraDict()
+
+    def tearDown(self):
+        self.dictionary.delete()
+
+    def get_dictionary(self):
+        return self.dictionary

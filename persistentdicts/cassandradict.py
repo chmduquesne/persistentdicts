@@ -4,6 +4,7 @@ from __future__ import with_statement
 import collections
 import proxydict
 import cassandra
+import cassandra.cluster
 
 
 class CassandraStringDict(collections.MutableMapping):
@@ -11,12 +12,12 @@ class CassandraStringDict(collections.MutableMapping):
     Sqlite database with an interface of dictionary
     """
 
-    def __init__(self, contact_points=("127.0.0.1",), port=9042,
-            keyspace="dict"):
+    def __init__(self, contact_points, port, keyspace, table):
         self.contact_points = contact_points
         self.port = port
-        self.cluster = cassandra.cluster.Cluster(contact_points, ports)
+        self.cluster = cassandra.cluster.Cluster(contact_points, port)
         self.keyspace = keyspace
+        self.table = table
         try:
             self.session = self.cluster.connect(self.keyspace)
         except cassandra.InvalidRequest:
@@ -28,51 +29,59 @@ class CassandraStringDict(collections.MutableMapping):
                     "'replication_factor': 3}" % self.keyspace
                     )
             self.session.set_keyspace(self.keyspace)
+        self.session.execute(
+                "CREATE TABLE IF NOT EXISTS %s "
+                "(key text PRIMARY KEY, value text)"
+                % self.table)
+
+    def delete(self):
+            self.session.execute("DROP KEYSPACE %s" % self.keyspace)
+            self.session.shutdown()
 
     def __len__(self):
-        with contextlib.closing(self.conn.cursor()) as c:
-            c.execute("SELECT COUNT(*) from %s" % self.table)
-            res = int(c.fetchone()[0])
-        return res
+        rows = self.session.execute(
+                "SELECT COUNT(*) FROM %s " % self.table
+                )
+        for row in rows:
+            return row[0]
+        return 0
 
     def __getitem__(self, key):
-        with contextlib.closing(self.conn.cursor()) as c:
-            c.execute("SELECT value FROM %s "
-                      "WHERE key = ? LIMIT 1" % self.table,
-                      (key,))
-            row = c.fetchone()
-            if row is None:
-                raise KeyError
-            return row[0]
+        rows = self.session.execute(
+                "SELECT key, value FROM %s " % self.table +
+                "WHERE key = %s LIMIT 1", (key,)
+                )
+        for key, value in rows:
+            return value
+        raise KeyError
 
     def __setitem__(self, key, value):
-        with contextlib.closing(self.conn.cursor()) as c:
-            c.execute("INSERT OR REPLACE INTO %s (key, value)"
-                      "VALUES (?, ?)" % self.table, (key, value))
-            self.conn.commit()
+        self.session.execute(
+                "INSERT INTO %s (key, value)" % self.table +
+                "VALUES (%s, %s)", (key, value))
 
     def __delitem__(self, key):
         if key not in self:
             raise KeyError
-        with contextlib.closing(self.conn.cursor()) as c:
-            c.execute("DELETE FROM %s "
-                      "WHERE key=?" % self.table,
-                      (key,))
-            self.conn.commit()
+        self.session.execute(
+                "DELETE FROM %s " % self.table +
+                "WHERE key = %s", (key,))
 
     def __contains__(self, key):
-        with contextlib.closing(self.conn.cursor()) as c:
-            c.execute("SELECT 1 FROM %s "
-                      "WHERE key=? LIMIT 1" % self.table,
-                      (key,))
-            row = c.fetchone()
-            return row is not None
+        res = False
+        rows = self.session.execute(
+                "SELECT * FROM %s " % self.table +
+                "WHERE key = %s LIMIT 1", (key,))
+        for row in rows:
+            res = True
+        return res
 
     def iteritems(self):
-        with contextlib.closing(self.conn.cursor()) as c:
-            for row in c.execute(
-                    "SELECT key, value FROM %s" % self.table):
-                yield row[0], row[1]
+        rows = self.session.execute(
+                "SELECT key, value FROM %s " % self.table
+                )
+        for key, value in rows:
+            yield key, value
 
     def __iter__(self):
         for key, value in self.iteritems():
@@ -81,13 +90,15 @@ class CassandraStringDict(collections.MutableMapping):
 
 class CassandraDict(proxydict.JsonProxyDict):
 
-    def __init__(self, path=":memory:", table="dict",
-                 isolation_level="DEFERRED", *args, **kwargs):
-        target = SqliteStringDict(path, table=table,
-                                  isolation_level=isolation_level)
+    def __init__(self, contact_points=("127.0.0.1",), port=9042,
+            keyspace="dict", table="dict", *args, **kwargs):
+        target = CassandraStringDict(contact_points, port, keyspace, table)
         super(proxydict.JsonProxyDict, self).__init__(target)
         self.update(dict(*args, **kwargs))
 
     def copy(self):
         t = self.target
-        return SqliteDict(t.path, t.table, t.isolation_level)
+        return CassandraDict(t.contact_points, t.port, t.keyspace, t.table)
+
+    def delete(self):
+        return self.target.delete()
