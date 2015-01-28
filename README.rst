@@ -83,7 +83,7 @@ Planned:
 -  leveldb
 -  redis
 
-You can request new formats on the |bug tracker|.
+You can request new formats on the `bug tracker <https://github.com/chmduquesne/persistentdicts/issues>`__.
 
 Short documentation
 ===================
@@ -143,5 +143,3 @@ persistentdicts.CassandraDict
    :target: https://coveralls.io/r/chmduquesne/persistentdicts?branch=master
 .. |License| image:: https://pypip.in/license/persistentdicts/badge.svg?style=flat
    :target: https://pypi.python.org/pypi/persistentdicts/
-.. |bug tracker|
-   :target: https://github.com/chmduquesne/persistentdicts/issues
