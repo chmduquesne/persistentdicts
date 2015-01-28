@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Databases exposed through dict-like objects (sqlite, kyotocabinet)
+dict-like interfaces for various databases (cassandra, kyotocabinet, sqlite)
 """
 import setuptools
 

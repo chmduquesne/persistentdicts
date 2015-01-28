@@ -3,7 +3,7 @@ persistentdicts
 
 |Build Status| |Coverage Status| |License|
 
-This python library exposes various databases through dict-like objects.
+dict-like interfaces for various databases
 
 Key difference with competing projects
 ======================================
@@ -74,15 +74,16 @@ Databases supported so far
 
 Done:
 
--  sqlite
 -  kyotocabinet
+-  sqlite
+-  cassandra
 
 Planned:
 
--  cassandra
 -  leveldb
+-  redis
 
-You can request new formats on the bug tracker.
+You can request new formats on the |bug tracker|.
 
 Short documentation
 ===================
@@ -119,9 +120,28 @@ persistentdicts.KyotoCabinetDict
 -  the remaining arguments ``*args, **kwargs`` are used to fill the
    dictionary (like a normal ``dict``)
 
+persistentdicts.CassandraDict
+--------------------------------
+
+::
+
+    persistentdicts.CassandraDict(contact_points=("127.0.0.1",), port=9042, keyspace="dict", table="dict", *args, **kwargs)
+
+-  ``contact_points`` is an initial list of ip addresses which are part of
+   the Cassandra cluster. The Cassandra driver will automatically discover
+   the rest of the cluster.
+-  ``port`` is the port on which Cassandra runs.
+-  ``keyspace`` is the keyspace used to store the data. This keyspace will
+   be deleted if the method ``.delete()`` is called on the CassandraDict
+-  ``table`` is the name of the table used to store the data.
+-  the remaining arguments ``*args, **kwargs`` are used to fill the
+   dictionary (like a normal ``dict``)
+
 .. |Build Status| image:: https://travis-ci.org/chmduquesne/persistentdicts.svg
    :target: https://travis-ci.org/chmduquesne/persistentdicts
 .. |Coverage Status| image:: https://coveralls.io/repos/chmduquesne/persistentdicts/badge.svg?branch=master
    :target: https://coveralls.io/r/chmduquesne/persistentdicts?branch=master
 .. |License| image:: https://pypip.in/license/persistentdicts/badge.svg?style=flat
    :target: https://pypi.python.org/pypi/persistentdicts/
+.. |bug tracker|
+   :target: https://github.com/chmduquesne/persistentdicts/issues
