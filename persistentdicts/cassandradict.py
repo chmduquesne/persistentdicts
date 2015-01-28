@@ -44,7 +44,6 @@ class CassandraStringDict(collections.MutableMapping):
                 )
         for row in rows:
             return row[0]
-        return 0
 
     def __getitem__(self, key):
         rows = self.session.execute(
