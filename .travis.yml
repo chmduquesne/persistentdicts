@@ -19,6 +19,9 @@ script:
 after_success:
     - venv/bin/coveralls
 deploy:
+    branches:
+        only:
+            - master
     provider: pypi
     skip_cleanup: true
     user: chm.duquesne
