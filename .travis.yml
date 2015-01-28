@@ -1,3 +1,5 @@
+services:
+    - cassandra
 language:
     python
 before_install:
