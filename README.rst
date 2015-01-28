@@ -5,8 +5,8 @@ persistentdicts
 
 dict-like interfaces for various databases
 
-Key difference with competing projects
-======================================
+Key differences with competing projects
+=======================================
 
 If you search on pypi, you will find a few competing projects: pdicts,
 durabledicts, etc. The key differences between persistentdicts and those
