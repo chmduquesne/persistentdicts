@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
 from __future__ import with_statement
+from . import proxydict
 import collections
-import proxydict
 import sqlite3
 import contextlib
 

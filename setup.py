@@ -21,7 +21,11 @@ RELEASE = "1.2.3"
 
 # Get the version from git, otherwise fall back to RELEASE
 try:
-    VERSION = re.sub("-(\\d+)-\\w+$", ".dev\\1", run(["git", "describe"]).strip())
+    VERSION = re.sub(
+            "-(\\d+)-\\w+$",
+            ".dev\\1",
+            run(["git", "describe"]).decode().strip()
+            )
 except subprocess.CalledProcessError:
     VERSION = RELEASE
 

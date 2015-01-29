@@ -3,6 +3,11 @@ import persistentdicts
 import unittest
 import tempfile
 import os
+import sys
+from . import proxydict
+from . import sqlitedict
+from . import kyotocabinetdict
+from . import cassandradict
 
 
 class DictionaryTestCase():
@@ -143,12 +148,6 @@ class DictionaryTestCase():
         for e in d:
             self.assertEqual(d.get(e), e)
 
-    def test_has_key(self):
-        d = self.get_dictionary()
-        self.assertEqual(d.has_key("a"), False)
-        d["a"] = "a"
-        self.assertEqual(d.has_key("a"), True)
-
     def test_items(self):
         d = self.get_dictionary()
         elems = ["a", 1, None]
@@ -157,29 +156,37 @@ class DictionaryTestCase():
         for key, value in d.items():
             self.assertEqual(key, value)
 
-    def test_iteritems(self):
-        d = self.get_dictionary()
-        elems = ["a", 1, None]
-        for e in elems:
-            d[e] = e
-        for key, value in d.iteritems():
-            self.assertEqual(key, value)
+    # irrelevant in python3
 
-    def test_iterkeys(self):
-        d = self.get_dictionary()
-        elems = ["a", 1, None]
-        for e in elems:
-            d[e] = e
-        for key in d.iterkeys():
-            self.assertEqual(d[key], key)
+    #def test_has_key(self):
+    #    d = self.get_dictionary()
+    #    self.assertEqual(d.has_key("a"), False)
+    #    d["a"] = "a"
+    #    self.assertEqual(d.has_key("a"), True)
 
-    def test_itervalues(self):
-        d = self.get_dictionary()
-        elems = ["a", 1, None]
-        for e in elems:
-            d[e] = e
-        for value in d.itervalues():
-            self.assertEqual(d[value], value)
+    #def test_iteritems(self):
+    #    d = self.get_dictionary()
+    #    elems = ["a", 1, None]
+    #    for e in elems:
+    #        d[e] = e
+    #    for key, value in d.iteritems():
+    #        self.assertEqual(key, value)
+
+    #def test_iterkeys(self):
+    #    d = self.get_dictionary()
+    #    elems = ["a", 1, None]
+    #    for e in elems:
+    #        d[e] = e
+    #    for key in d.iterkeys():
+    #        self.assertEqual(d[key], key)
+
+    #def test_itervalues(self):
+    #    d = self.get_dictionary()
+    #    elems = ["a", 1, None]
+    #    for e in elems:
+    #        d[e] = e
+    #    for value in d.itervalues():
+    #        self.assertEqual(d[value], value)
 
     def test_keys(self):
         d = self.get_dictionary()
@@ -299,7 +306,7 @@ class ProxyDictTestCase(DictionaryTestCase, unittest.TestCase):
         pass
 
     def get_dictionary(self):
-        return persistentdicts.ProxyDict()
+        return proxydict.ProxyDict()
 
 
 class JsonProxyDictTestCase(DictionaryTestCase, unittest.TestCase):
@@ -311,7 +318,7 @@ class JsonProxyDictTestCase(DictionaryTestCase, unittest.TestCase):
         pass
 
     def get_dictionary(self):
-        return persistentdicts.JsonProxyDict()
+        return proxydict.JsonProxyDict()
 
 
 class KyotoCabinetDictTestCase(DictionaryTestCase, unittest.TestCase):
@@ -326,7 +333,7 @@ class KyotoCabinetDictTestCase(DictionaryTestCase, unittest.TestCase):
         os.unlink(self.path)
 
     def get_dictionary(self):
-        return persistentdicts.KyotoCabinetDict(self.path)
+        return kyotocabinetdict.KyotoCabinetDict(self.path)
 
 
 class SqliteDictTestCase(DictionaryTestCase, unittest.TestCase):
@@ -341,7 +348,7 @@ class SqliteDictTestCase(DictionaryTestCase, unittest.TestCase):
         os.unlink(self.path)
 
     def get_dictionary(self):
-        return persistentdicts.SqliteDict(self.path)
+        return sqlitedict.SqliteDict(self.path)
 
 
 class CassandraDictTestCase(DictionaryTestCase, unittest.TestCase):

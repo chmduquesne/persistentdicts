@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
 from __future__ import with_statement
+from . import proxydict
 from kyotocabinet import *
 import collections
-import proxydict
 
 
 class DBOpen():
@@ -50,7 +50,7 @@ class KyotoCabinetStringDict(collections.MutableMapping):
 
     def __getitem__(self, key):
         with DBOpen(self.path) as db:
-            value = db.get(key)
+            value = db.get_str(key)
             if value is None:
                 raise KeyError(str(db.error()))
             return value
@@ -74,7 +74,7 @@ class KyotoCabinetStringDict(collections.MutableMapping):
             cursor = db.cursor()
             cursor.jump()
             while True:
-                record = cursor.get(True)
+                record = cursor.get_str(True)
                 if not record:
                     break
                 key = record[0]
