@@ -156,37 +156,44 @@ class DictionaryTestCase():
         for key, value in d.items():
             self.assertEqual(key, value)
 
-    # irrelevant in python3
 
-    #def test_has_key(self):
-    #    d = self.get_dictionary()
-    #    self.assertEqual(d.has_key("a"), False)
-    #    d["a"] = "a"
-    #    self.assertEqual(d.has_key("a"), True)
+    def test_has_key(self):
+        # only relevant in python2
+        if sys.version_info[0] < 3:
+            d = self.get_dictionary()
+            self.assertEqual(d.has_key("a"), False)
+            d["a"] = "a"
+            self.assertEqual(d.has_key("a"), True)
 
-    #def test_iteritems(self):
-    #    d = self.get_dictionary()
-    #    elems = ["a", 1, None]
-    #    for e in elems:
-    #        d[e] = e
-    #    for key, value in d.iteritems():
-    #        self.assertEqual(key, value)
+    def test_iteritems(self):
+        # only relevant in python2
+        if sys.version_info[0] < 3:
+            d = self.get_dictionary()
+            elems = ["a", 1, None]
+            for e in elems:
+                d[e] = e
+            for key, value in d.iteritems():
+                self.assertEqual(key, value)
 
-    #def test_iterkeys(self):
-    #    d = self.get_dictionary()
-    #    elems = ["a", 1, None]
-    #    for e in elems:
-    #        d[e] = e
-    #    for key in d.iterkeys():
-    #        self.assertEqual(d[key], key)
+    def test_iterkeys(self):
+        # only relevant in python2
+        if sys.version_info[0] < 3:
+            d = self.get_dictionary()
+            elems = ["a", 1, None]
+            for e in elems:
+                d[e] = e
+            for key in d.iterkeys():
+                self.assertEqual(d[key], key)
 
-    #def test_itervalues(self):
-    #    d = self.get_dictionary()
-    #    elems = ["a", 1, None]
-    #    for e in elems:
-    #        d[e] = e
-    #    for value in d.itervalues():
-    #        self.assertEqual(d[value], value)
+    def test_itervalues(self):
+        # only relevant in python2
+        if sys.version_info[0] < 3:
+            d = self.get_dictionary()
+            elems = ["a", 1, None]
+            for e in elems:
+                d[e] = e
+            for value in d.itervalues():
+                self.assertEqual(d[value], value)
 
     def test_keys(self):
         d = self.get_dictionary()
