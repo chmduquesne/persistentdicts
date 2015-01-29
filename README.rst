@@ -1,7 +1,7 @@
 persistentdicts
 ===============
 
-|Build Status| |Coverage Status| |License|
+|Build Status| |Coverage Status| |License| |Supported Python versions|
 
 dict-like interfaces for various databases
 
@@ -145,3 +145,5 @@ persistentdicts.cassandradict.CassandraDict
    :target: https://coveralls.io/r/chmduquesne/persistentdicts?branch=master
 .. |License| image:: https://pypip.in/license/persistentdicts/badge.svg?style=flat
    :target: https://pypi.python.org/pypi/persistentdicts/
+.. |Supported Python versions| image:: https://pypip.in/py_versions/persistentdicts/badge.svg
+    :target: https://pypi.python.org/pypi/persistentdicts/

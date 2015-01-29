@@ -17,7 +17,7 @@ DOWNLOAD_URL = "https://github.com/chmduquesne/%s/archive/%s.tar.gz"
 #     MAJOR for incompatible API changes,
 #     MINOR for added functionality in a backwards-compatible manner
 #     PATCH for backwards-compatible bug fixes.
-RELEASE = "2.0.1"
+RELEASE = "2.0.2"
 
 # Get the version from git, otherwise fall back to RELEASE
 try:
@@ -60,8 +60,8 @@ setuptools.setup(
         'Intended Audience :: Developers',
         'License :: OSI Approved :: MIT License',
         'Operating System :: OS Independent',
-        'Programming Language :: Python :: 2',
-        'Programming Language :: Python :: 3',
+        'Programming Language :: Python :: 2.7',
+        'Programming Language :: Python :: 3.4',
         ],
     install_requires=[
         "kyotocabinet >= 1.9",
