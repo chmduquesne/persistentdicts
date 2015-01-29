@@ -82,6 +82,8 @@ Planned:
 
 -  leveldb
 -  redis
+-  memcachedb
+-  lightcloud
 
 You can request new formats on the `bug tracker <https://github.com/chmduquesne/persistentdicts/issues>`__.
 
