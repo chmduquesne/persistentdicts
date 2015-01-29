@@ -90,12 +90,12 @@ You can request new formats on the `bug tracker <https://github.com/chmduquesne/
 Short documentation
 ===================
 
-persistentdicts.SqliteDict
---------------------------
+persistentdicts.sqlitedict.SqliteDict
+-------------------------------------
 
 ::
 
-    persistentdicts.SqliteDict(path=":memory:", table="dict", isolation_level="DEFERRED", *args, **kwargs)
+    persistentdicts.sqlitedict.SqliteDict(path=":memory:", table="dict", isolation_level="DEFERRED", *args, **kwargs)
 
 -  ``path`` is the path to the file where you wish to store the data
 -  ``dict`` is the table to use in this file
@@ -106,12 +106,12 @@ persistentdicts.SqliteDict
 -  the remaining arguments ``*args, **kwargs`` are used to fill the
    dictionary (like a normal ``dict``)
 
-persistentdicts.KyotoCabinetDict
---------------------------------
+persistentdicts.kyotocabinetdict.KyotoCabinetDict
+-------------------------------------------------
 
 ::
 
-    persistentdicts.KyotoCabinetDict(path, *args, **kwargs)
+    persistentdicts.kyotocabinetdict.KyotoCabinetDict(path, *args, **kwargs)
 
 -  ``path`` is the path to the file where you wish to store the data.
    The file extension matters and will determine which format is going
@@ -122,12 +122,12 @@ persistentdicts.KyotoCabinetDict
 -  the remaining arguments ``*args, **kwargs`` are used to fill the
    dictionary (like a normal ``dict``)
 
-persistentdicts.CassandraDict
---------------------------------
+persistentdicts.cassandradict.CassandraDict
+-------------------------------------------
 
 ::
 
-    persistentdicts.CassandraDict(contact_points=("127.0.0.1",), port=9042, keyspace="dict", table="dict", *args, **kwargs)
+    persistentdicts.cassandradict.CassandraDict(contact_points=("127.0.0.1",), port=9042, keyspace="dict", table="dict", *args, **kwargs)
 
 -  ``contact_points`` is an initial list of ip addresses which are part of
    the Cassandra cluster. The Cassandra driver will automatically discover
