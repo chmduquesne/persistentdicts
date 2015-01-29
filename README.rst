@@ -145,5 +145,5 @@ persistentdicts.cassandradict.CassandraDict
    :target: https://coveralls.io/r/chmduquesne/persistentdicts?branch=master
 .. |License| image:: https://pypip.in/license/persistentdicts/badge.svg?style=flat
    :target: https://pypi.python.org/pypi/persistentdicts/
-.. |Supported Python versions| image:: https://pypip.in/py_versions/persistentdicts/badge.svg
+.. |Supported Python versions| image:: https://pypip.in/py_versions/persistentdicts/badge.svg?style=flat
     :target: https://pypi.python.org/pypi/persistentdicts/
