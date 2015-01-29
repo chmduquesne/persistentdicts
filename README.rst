@@ -32,7 +32,7 @@ You can't modify a value of the dictionary in place. For example:
 
     >>> import persistentdicts
 
-    >>> d = persistentdicts.SqliteDict()
+    >>> d = persistentdicts.sqlitedict.SqliteDict()
     >>> d["a"] = []
     >>> d["a"].append(1)
 
@@ -49,7 +49,7 @@ To circumvent this, you should do:
 
     >>> import persistentdicts
 
-    >>> d = persistentdicts.SqliteDict()
+    >>> d = persistentdicts.sqlitedict.SqliteDict()
     >>> d["a"] = []
     >>> d["a"] = d["a"] + [1]
 
@@ -63,7 +63,7 @@ return a reference to the stored value, but a copy of this value.
 
     >>> import persistentdicts
 
-    >>> d = persistentdicts.SqliteDict()
+    >>> d = persistentdicts.sqlitedict.SqliteDict()
     >>> d.setdefault("a", []).append(1)
 
     >>> d["a"]
