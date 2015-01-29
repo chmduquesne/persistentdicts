@@ -17,7 +17,7 @@ DOWNLOAD_URL = "https://github.com/chmduquesne/%s/archive/%s.tar.gz"
 #     MAJOR for incompatible API changes,
 #     MINOR for added functionality in a backwards-compatible manner
 #     PATCH for backwards-compatible bug fixes.
-RELEASE = "2.0.0"
+RELEASE = "2.0.1"
 
 # Get the version from git, otherwise fall back to RELEASE
 try:
