@@ -5,24 +5,20 @@ language:
 before_install:
     - sudo add-apt-repository -y "deb http://archive.ubuntu.com/ubuntu/ trusty main universe"
     - sudo apt-get update -qq
-    - git describe | sed 's/-\([^-]\+\)-.*/.dev\1/g' > version
 install:
     - sudo apt-get install -qq gcc g++ build-essential
     - sudo apt-get install -qq sqlite
     - sudo apt-get install -qq libkyotocabinet-dev
-    - sudo pip install virtualenv
-    - virtualenv venv
-    - venv/bin/pip install -r requirements.txt
-    - venv/bin/pip install coveralls
+    - pip install -r requirements.txt
+    - pip install coveralls
 python:
     - 2.7
 script:
-    - venv/bin/coverage run -m unittest discover -v
+    - coverage run -m unittest discover -v
 after_success:
-    - venv/bin/coveralls
+    - coveralls
 deploy:
     provider: pypi
-    skip_cleanup: true
     user: chm.duquesne
     password:
         secure: BwkOtw3rQxJ4r8DUNJSndmO/08zRk9ZTcNw+7Mw5CyiqHl9RjTTUrUSgFzxDDtSkBdIzlsUCPFVuqL5SIC1adw8Uof9BNRYZPccL8knrtQe7dqF0rkE6O2PVvF1SCyurKqCmRKy9LZBzxIok+YX67tuWmjbngOmf/JLyuN/rIF0=
