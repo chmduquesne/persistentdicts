@@ -3,6 +3,7 @@ import persistentdicts
 import unittest
 import tempfile
 import os
+import os.path
 import sys
 from . import proxydict
 from . import sqlitedict
@@ -337,7 +338,8 @@ class KyotoCabinetDictTestCase(DictionaryTestCase, unittest.TestCase):
         self.path = path
 
     def tearDown(self):
-        os.unlink(self.path)
+        if os.path.exists(self.path):
+            os.unlink(self.path)
 
     def get_dictionary(self):
         return kyotocabinetdict.KyotoCabinetDict(self.path)
@@ -352,7 +354,8 @@ class SqliteDictTestCase(DictionaryTestCase, unittest.TestCase):
         self.path = path
 
     def tearDown(self):
-        os.unlink(self.path)
+        if os.path.exists(self.path):
+            os.unlink(self.path)
 
     def get_dictionary(self):
         return sqlitedict.SqliteDict(self.path)
