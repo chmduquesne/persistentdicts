@@ -354,7 +354,7 @@ class SqliteDictTestCase(DictionaryTestCase, unittest.TestCase):
 class CassandraDictTestCase(DictionaryTestCase, unittest.TestCase):
 
     def setUp(self):
-        self.dictionary = persistentdicts.CassandraDict()
+        self.dictionary = cassandradict.CassandraDict()
 
     def tearDown(self):
         self.dictionary.delete()
