@@ -7,8 +7,6 @@ import re
 import sys
 from subprocess import check_output as run
 
-NAME = "persistentdicts"
-DOWNLOAD_URL = "https://github.com/chmduquesne/%s/archive/%s.tar.gz"
 
 # We use semantic versioning http://semver.org/.
 #
@@ -17,6 +15,7 @@ DOWNLOAD_URL = "https://github.com/chmduquesne/%s/archive/%s.tar.gz"
 #     MAJOR for incompatible API changes,
 #     MINOR for added functionality in a backwards-compatible manner
 #     PATCH for backwards-compatible bug fixes.
+NAME = "persistentdicts"
 RELEASE = "2.0.4"
 
 # Get the version from git, otherwise fall back to RELEASE
@@ -52,7 +51,7 @@ setuptools.setup(
     author="Christophe-Marie Duquesne",
     author_email="chmd@chmd.fr",
     url="https://github.com/chmduquesne/%s" % NAME,
-    download_url=DOWNLOAD_URL % (NAME, GIT_REF),
+    download_url="https://github.com/chmduquesne/%s/archive/%s.tar.gz" % (NAME, GIT_REF),
     keywords=["database", "interface", "adapter"],
     packages=["persistentdicts"],
     classifiers=[
